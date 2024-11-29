@@ -149,7 +149,11 @@ std::vector<std::string> parseValuesFromResponse(std::string const& _response)
 
 std::pair<CheckResult, std::vector<std::string>> SMTLib2Interface::check(std::vector<Expression> const& _expressionsToEvaluate)
 {
-	std::string response = querySolver(dumpQuery(_expressionsToEvaluate));
+	std::string dumpedQuery = dumpQuery(_expressionsToEvaluate);
+	std::string response = querySolver(dumpedQuery);
+
+	std::cout << "Dumped query:\n" << dumpedQuery << std::endl;
+	std::cout << "The response of the Solver is " << response << std::endl;
 
 	CheckResult result;
 	// TODO proper parsing
