@@ -2356,7 +2356,8 @@ void SMTEncoder::initializeFunctionCallParameters(CallableDeclaration const& _fu
 
 void SMTEncoder::createStateVariables(ContractDefinition const& _contract)
 {
-	for (auto var: stateVariablesIncludingInheritedAndPrivate(_contract))
+	auto stateVariables = stateVariablesIncludingInheritedAndPrivate(_contract);
+	for (auto var: stateVariables)
 		createVariable(*var);
 }
 

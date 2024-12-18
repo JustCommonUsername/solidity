@@ -24,6 +24,11 @@ using namespace solidity;
 using namespace solidity::util;
 using namespace solidity::frontend::smt;
 
+struct StateVariable {
+	solidity::frontend::Type type;
+	std::string name;
+}
+
 EncodingContext::EncodingContext():
 	m_state(*this)
 {
@@ -61,6 +66,7 @@ bool EncodingContext::createVariable(frontend::VariableDeclaration const& _varDe
 	solAssert(!knownVariable(_varDecl), "");
 	auto const& type = _varDecl.type();
 	auto result = newSymbolicVariable(*type, _varDecl.name() + "_" + std::to_string(_varDecl.id()), *this);
+	auto type = result.second.get()->type();
 	m_variables.emplace(&_varDecl, result.second);
 	return result.first;
 }
